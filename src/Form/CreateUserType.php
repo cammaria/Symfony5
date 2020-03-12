@@ -31,7 +31,7 @@ class CreateUserType extends AbstractType
 			])
             ->add('telephone', TelType::class, [
 				'attr' => [
-					'placeholder' => 'Téléphone fix ou mobile'
+					'placeholder' => 'Téléphone fixe ou mobile'
 				]
 			])
 			->add('gender', ChoiceType::class, [
