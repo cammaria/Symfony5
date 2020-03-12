@@ -146,29 +146,31 @@
 {% endblock %}
 {% block javascripts %}
 <script>
- $(document).ready(function() {
+$(document).ready(function() {
 	$("form").on('submit', function(event) {
-        event.preventDefault();
+    event.preventDefault();
+
 		var data = {
-				'gender' : $("#create_user_gender").val(),
-				'firstName' : $('#create_user_firstName').val(),
-				'lastName' : $('#create_user_lastName').val(),
-				'email' : $('#create_user_email').val(),
-				'telephone' : $('#create_user_telephone').val(),
-				'newsletter' : $('#create_user_newsletter').val(),
-			};
+			'gender' : $("#create_user_gender").val(),
+			'firstName' : $('#create_user_firstName').val(),
+			'lastName' : $('#create_user_lastName').val(),
+			'email' : $('#create_user_email').val(),
+			'telephone' : $('#create_user_telephone').val(),
+			'newsletter' : $('#create_user_newsletter').val(),
+		};
 		$.ajax({
 			type: "POST",
 			url: "{{ path('home.ajax') }}",
 			data: data,
 			success : function(response){
 				$('.response').text(response);
+        $("form").get(0).reset();
 			},
 			error : function(response) {
 				$('.response').text(response['message']);
 			}
 		});
 	})
- });
- </script>
+});
+</script>
 {% endblock %}

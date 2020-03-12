@@ -46,19 +46,18 @@ class DefaultController extends AbstractController
 		$user = new User();
 		$form = $this->createForm(CreateUserType::class, $user);
 		$form->submit($request->request->all());
-
 		if ($form->isValid()) {
 			$entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
-            $entityManager->flush();
-	
-			$userSerialized = $serializer->serialize($user, 'json');
-			return new JsonResponse("L'utilisateur a bien été enregistré en base de donnée", Response::HTTP_CREATED, [], true);
+			$entityManager->flush();
+			
+			return new JsonResponse("L'utilisateur a bien été enregistré en base de donnée", Response::HTTP_OK, [], true);
 		} else {
 			$errors = array();
 			foreach ($form->getErrors(true) as $error){
 				$errors[] = $error->getMessage();
 			}
+
 			return new JsonResponse($serializer->serialize($errors, 'json'));
 		}
     }
